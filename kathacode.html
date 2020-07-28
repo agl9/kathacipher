@@ -1,0 +1,104 @@
+
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Katha's Code Language</title>
+</head>
+  <body id="mainBody">
+    <h1>Katha's Code language</h1>
+    <div id="separator">
+      <p>Enter your word:</p>
+      <input type="text" id="enterCode" >
+    </div>
+    <div id="seperator">
+      <p>Code number?:</p>
+      <input type="text" id="shiftCode" >
+    </div>
+    <button id="outputDisplay"> Convert to Katha's Code</button>
+    
+    <p id="outputText"></p>
+  </body>
+</html>
+
+<style>
+body{
+  background-color: cadetblue;
+  display: flex;
+  flex-direction: column;
+  margin: 2vw;
+  justify-content: center;
+  text-align: center;
+}
+h1{
+  font-size: 5vw;
+  border-bottom: 1vw solid black;
+}
+#enterCode{
+margin: 0vw auto;
+width: 15vw;
+text-align: center;
+}
+
+#shiftCode{
+margin: 0vw auto;
+width: 10vw;
+text-align: center;
+}
+#separator{
+  margin: 1vw auto;
+}
+
+button{
+  background-color: rgb(255, 174, 0);
+  border-color:  rgb(255, 174, 0);
+  border-radius: 10%;
+  width:20%;
+  font-size: 1vw;
+  margin: 2vw auto;
+}
+
+#outputText{
+  font-size: 4vw;
+  color: brown;
+  margin: 0%;
+}
+</style>
+
+<script>
+
+const caesar = function(inputString,numShift) {
+let inputArr=[];
+for(let i=0;i<inputString.length;i++){
+    inputArr[i]=inputString.charCodeAt(i);
+}
+const outputArray= inputArr.map(a=>{
+    if(a>=65&&a<=90){
+        let b=a+numShift-65;
+        return ((b%26+26)%26)+65;
+    } else if (a>=97&&a<=122){
+        let b=a+numShift-97;
+        return ((b%26+26)%26)+97;
+    } else return a;
+});
+let cipher="";
+for(i=0;i<outputArray.length;i++){
+    let outputString = String.fromCharCode(outputArray[i]);
+    cipher+=outputString;
+}
+return cipher
+}
+
+function runCaesar(){
+const enterCode=document.querySelector("#enterCode");
+const shiftCode=document.querySelector("#shiftCode");
+const numShift=parseInt(shiftCode.value);
+
+const outputValue=caesar(enterCode.value,numShift);
+console.log(outputValue);
+const outputText=document.querySelector("#outputText");
+outputText.innerHTML=`Katha Code for ${enterCode.value} is: ${outputValue}`;
+}
+const buttonRun=document.querySelector("#outputDisplay");
+buttonRun.addEventListener('click',runCaesar);
+
+</script>
